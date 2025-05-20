@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kamuss KBBI</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 10px;
+      }
+      label,
+      input,
+      button {
+        font-size: 1rem;
+      }
+      input {
+        padding: 8px;
+        width: 70%;
+        margin-right: 10px;
+      }
+      button {
+        padding: 8px 15px;
+        cursor: pointer;
+      }
+      #result {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        background: #f9f9f9;
+        min-height: 100px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kamus KBBI</h1>
+    <form id="kbbi-form">
+      <label for="kata">Masukkan kata:</label><br />
+      <input type="text" id="kata" name="kata" required />
+      <button type="submit">Cari</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      const form = document.getElementById("kbbi-form");
+      const resultDiv = document.getElementById("result");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const kata = document.getElementById("kata").value.trim();
+
+        if (!kata) {
+          resultDiv.textContent = "Masukkan kata terlebih dahulu.";
+          return;
+        }
+
+        resultDiv.textContent = "Sedang mencari...";
+
+        try {
+          const response = await fetch(
+            `https://kamus-eight.vercel.app/api/kbbi?kata=${encodeURIComponent(
+              kata
+            )}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (data.arti && data.arti.length > 0) {
+            const artiList = data.arti
+              .map((item, i) => `${i + 1}. ${item}`)
+              .join("\n\n");
+
+            resultDiv.textContent = `Hasil pencarian untuk kata "${kata}":\n\n${artiList}`;
+          } else {
+            resultDiv.textContent = `Kata "${kata}" tidak ditemukan di KBBI.`;
+          }
+        } catch (error) {
+          resultDiv.textContent = `Terjadi kesalahan: ${error.message}`;
+        }
+      });
+    </script>
+  </body>
+</html>
