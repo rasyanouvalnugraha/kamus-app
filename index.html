@@ -22,7 +22,7 @@
       h1 {
         color: #1e3a8a;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
       }
 
       form {
@@ -79,6 +79,29 @@
         white-space: pre-wrap;
       }
 
+      #saran-kata {
+        margin-top: 20px;
+        max-width: 600px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      #saran-kata span {
+        cursor: pointer;
+        background: #e0f2fe;
+        color: #0369a1;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s ease;
+      }
+
+      #saran-kata span:hover {
+        background-color: #bae6fd;
+      }
+
       @media (max-width: 500px) {
         form {
           flex-direction: column;
@@ -96,16 +119,35 @@
   </head>
   <body>
     <h1>🔍 Kamus KBBI</h1>
+
     <form id="kbbi-form">
       <input type="text" id="kata" name="kata" placeholder="Masukkan kata..." required />
       <button type="submit">Cari</button>
     </form>
+
+    <!-- Tempat kata acak ditampilkan -->
+    <div id="saran-kata"></div>
 
     <div id="result"></div>
 
     <script>
       const form = document.getElementById("kbbi-form");
       const resultDiv = document.getElementById("result");
+      const saranDiv = document.getElementById("saran-kata");
+
+      // Kata-kata acak
+      const kataAcak = ["cerdas", "kreatif", "mandiri", "inovatif", "tanggung jawab", "budaya", "teknologi", "etos kerja", "kolaborasi", "komunikasi", "air", "tanah", "udara", "api", "sosial", "ekonomi", "budaya", "politik", "pendidikan", "lingkungan hidup"];
+
+      // Tampilkan saran kata
+      kataAcak.forEach((kata) => {
+        const span = document.createElement("span");
+        span.textContent = kata;
+        span.addEventListener("click", () => {
+          document.getElementById("kata").value = kata;
+          form.dispatchEvent(new Event("submit"));
+        });
+        saranDiv.appendChild(span);
+      });
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -120,9 +162,7 @@
 
         try {
           const response = await fetch(
-            `https://kamus-eight.vercel.app/api/kbbi?kata=${encodeURIComponent(
-              kata
-            )}`
+            `https://kamus-eight.vercel.app/api/kbbi?kata=${encodeURIComponent(kata)}`
           );
 
           if (!response.ok) {
