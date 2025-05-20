@@ -3,43 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kamuss KBBI</title>
+    <title>Kamus KBBI</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #dbeafe, #f0f9ff);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        color: #1e3a8a;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
         max-width: 600px;
-        margin: 30px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      input[type="text"] {
         padding: 10px;
-      }
-      label,
-      input,
-      button {
         font-size: 1rem;
-      }
-      input {
-        padding: 8px;
         width: 70%;
-        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s ease;
       }
+
+      input[type="text"]:focus {
+        border-color: #2563eb;
+      }
+
       button {
-        padding: 8px 15px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
         cursor: pointer;
+        transition: background-color 0.3s ease;
       }
+
+      button:hover {
+        background-color: #1d4ed8;
+      }
+
       #result {
-        margin-top: 20px;
-        border: 1px solid #ddd;
-        padding: 15px;
-        background: #f9f9f9;
-        min-height: 100px;
+        margin-top: 25px;
+        background-color: #fff;
+        border-left: 4px solid #2563eb;
+        padding: 20px;
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         white-space: pre-wrap;
+      }
+
+      @media (max-width: 500px) {
+        form {
+          flex-direction: column;
+        }
+
+        input[type="text"] {
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>Kamus KBBI</h1>
+    <h1>🔍 Kamus KBBI</h1>
     <form id="kbbi-form">
-      <label for="kata">Masukkan kata:</label><br />
-      <input type="text" id="kata" name="kata" required />
+      <input type="text" id="kata" name="kata" placeholder="Masukkan kata..." required />
       <button type="submit">Cari</button>
     </form>
 
@@ -78,12 +136,12 @@
               .map((item, i) => `${i + 1}. ${item}`)
               .join("\n\n");
 
-            resultDiv.textContent = `Hasil pencarian untuk kata "${kata}":\n\n${artiList}`;
+            resultDiv.textContent = `📘 Hasil pencarian untuk kata "${kata}":\n\n${artiList}`;
           } else {
-            resultDiv.textContent = `Kata "${kata}" tidak ditemukan di KBBI.`;
+            resultDiv.textContent = `❌ Kata "${kata}" tidak ditemukan di KBBI.`;
           }
         } catch (error) {
-          resultDiv.textContent = `Terjadi kesalahan: ${error.message}`;
+          resultDiv.textContent = `⚠️ Terjadi kesalahan: ${error.message}`;
         }
       });
     </script>
