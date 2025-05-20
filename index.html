@@ -4,27 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kamus KBBI Modern</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
       /* Reset and Base Styles */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       }
 
       body {
         background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
         min-height: 100vh;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23dbeafe' fill-opacity='1' d='M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,144C672,128,768,96,864,85.3C960,75,1056,85,1152,117.3C1248,149,1344,203,1392,229.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-        background-size: cover;
-        background-position: bottom;
-        background-repeat: no-repeat;
+        position: relative;
+      }
+
+      body::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background-color: #dbeafe;
+        border-top-left-radius: 50% 30px;
+        border-top-right-radius: 50% 30px;
+        z-index: -1;
       }
 
       /* Animations */
@@ -103,6 +108,14 @@
         border-radius: 50%;
         padding: 16px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        color: #2563eb;
+        font-weight: bold;
       }
 
       .header-title {
@@ -412,6 +425,46 @@
         color: #dc2626;
       }
 
+      /* Icon styles to replace Font Awesome */
+      .icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        position: relative;
+      }
+
+      .icon-search::before {
+        content: "🔍";
+      }
+
+      .icon-arrow-right::before {
+        content: "➡️";
+      }
+
+      .icon-refresh::before {
+        content: "🔄";
+      }
+
+      .icon-trash::before {
+        content: "🗑️";
+      }
+
+      .icon-share::before {
+        content: "📤";
+      }
+
+      .icon-volume::before {
+        content: "🔊";
+      }
+
+      .icon-error::before {
+        content: "⚠️";
+      }
+
+      .icon-book::before {
+        content: "📚";
+      }
+
       /* Responsiveness */
       @media (max-width: 640px) {
         .header-title {
@@ -430,7 +483,7 @@
       <div class="header">
         <div class="header-icon-container">
           <div class="header-icon">
-            <i class="fas fa-book-open text-blue-600" style="font-size: 36px; color: #2563eb;"></i>
+            <span class="icon-book"></span>
           </div>
         </div>
         <h1 class="header-title">Kamus KBBI Modern</h1>
@@ -443,7 +496,7 @@
       <div class="search-container">
         <form id="kbbi-form" class="search-form">
           <div class="search-input-container">
-            <i class="fas fa-search search-icon"></i>
+            <span class="search-icon">🔍</span>
             <input
               type="text"
               id="kata"
@@ -455,7 +508,7 @@
             />
             <button type="submit" class="search-button">
               <span>Cari</span>
-              <i class="fas fa-arrow-right"></i>
+              <span>➡️</span>
             </button>
           </div>
         </form>
@@ -466,7 +519,7 @@
         <div class="section-header">
           <h3 class="section-title">Kata Populer</h3>
           <button id="refresh-random" class="refresh-button">
-            <i class="fas fa-sync-alt"></i>
+            <span>🔄</span>
             <span>Acak</span>
           </button>
         </div>
@@ -478,7 +531,7 @@
         <div class="section-header">
           <h3 class="section-title">Riwayat Pencarian</h3>
           <button id="clear-history" class="clear-button">
-            <i class="fas fa-trash-alt"></i>
+            <span>🗑️</span>
             <span>Hapus</span>
           </button>
         </div>
@@ -524,7 +577,7 @@
         "mandiri",
         "inovatif",
         "teknologi",
-        "etos kerja",
+        "etos",
         "kolaborasi",
         "komunikasi",
         "air",
@@ -628,10 +681,10 @@
 
       // Refresh random suggestions
       refreshRandomBtn.addEventListener("click", () => {
-        refreshRandomBtn.classList.add("animate-spin");
+        refreshRandomBtn.querySelector("span:first-child").classList.add("animate-spin");
         setTimeout(() => {
           displayRandomSuggestions();
-          refreshRandomBtn.classList.remove("animate-spin");
+          refreshRandomBtn.querySelector("span:first-child").classList.remove("animate-spin");
         }, 300);
       });
 
@@ -689,11 +742,11 @@
             </div>
             <div class="result-actions">
               <button id="share-btn" class="action-button">
-                <i class="fas fa-share-alt"></i>
+                <span>📤</span>
                 <span>Bagikan</span>
               </button>
               <button id="speak-btn" class="action-button">
-                <i class="fas fa-volume-up"></i>
+                <span>🔊</span>
                 <span>Ucapkan</span>
               </button>
             </div>
@@ -754,7 +807,7 @@
       function showError(message) {
         resultDiv.innerHTML = `
         <div class="error-container">
-          <i class="fas fa-exclamation-circle" style="font-size: 24px;"></i>
+          <span>⚠️</span>
           <p>${message}</p>
         </div>
       `;
