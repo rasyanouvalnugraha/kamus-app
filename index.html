@@ -4,17 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kamus KBBI Modern</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
+      /* Reset and Base Styles */
       * {
-        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
       }
 
+      body {
+        background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
+        min-height: 100vh;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23dbeafe' fill-opacity='1' d='M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,144C672,128,768,96,864,85.3C960,75,1056,85,1152,117.3C1248,149,1344,203,1392,229.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: bottom;
+        background-repeat: no-repeat;
+      }
+
+      /* Animations */
       .animate-fade-in {
         animation: fadeIn 0.5s ease-in-out;
       }
@@ -27,81 +40,410 @@
         animation: pop 0.5s ease-out;
       }
 
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       @keyframes scale {
-        0% {
-          transform: scale(0.95);
-        }
-        70% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
+        0% { transform: scale(0.95); }
+        70% { transform: scale(1.05); }
+        100% { transform: scale(1); }
       }
 
       @keyframes pop {
-        0% {
-          transform: scale(0.8);
-          opacity: 0;
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
+        0% { transform: scale(0.8); opacity: 0; }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); opacity: 1; }
       }
 
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      /* Glass Effect */
       .glass-effect {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
       }
 
-      .wave-bg {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23dbeafe' fill-opacity='1' d='M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,144C672,128,768,96,864,85.3C960,75,1056,85,1152,117.3C1248,149,1344,203,1392,229.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-        background-size: cover;
-        background-position: bottom;
-        background-repeat: no-repeat;
+      /* Layout Styles */
+      .container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 32px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Header Styles */
+      .header {
+        margin-bottom: 32px;
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .header-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .header-icon {
+        background-color: white;
+        border-radius: 50%;
+        padding: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-title {
+        font-size: 36px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 8px;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+      }
+
+      .header-subtitle {
+        color: black;
+        max-width: 450px;
+        margin: 0 auto;
+      }
+
+      /* Search Form Styles */
+      .search-container {
+        width: 100%;
+        max-width: 580px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        margin-bottom: 24px;
+        animation: scale 0.3s ease-in-out;
+      }
+
+      .search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .search-input-container {
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 16px 16px 16px 48px;
+        border-radius: 12px;
+        border: 2px solid #dbeafe;
+        outline: none;
+        transition: all 0.3s;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .search-input:focus {
+        border-color: #60a5fa;
+      }
+
+      .search-button {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #2563eb;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .search-button:hover {
+        background-color: #1d4ed8;
+      }
+
+      /* Suggestions Section */
+      .suggestions-container {
+        width: 100%;
+        max-width: 580px;
+        margin-bottom: 24px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .section-title {
+        color: black;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .refresh-button {
+        color: rgba(219, 234, 254, 1);
+        font-size: 14px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.3s;
+      }
+
+      .refresh-button:hover {
+        color: white;
+      }
+
+      .suggestions-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .suggestion-item {
+        background: linear-gradient(to right, #f0f9ff, #ffffff);
+        color: #1e40af;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .suggestion-item:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* History Section */
+      .history-container {
+        width: 100%;
+        max-width: 580px;
+        margin-bottom: 24px;
+        display: none;
+      }
+
+      .clear-button {
+        color: rgba(219, 234, 254, 1);
+        font-size: 14px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 0.3s;
+      }
+
+      .clear-button:hover {
+        color: white;
+      }
+
+      .history-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .history-item {
+        background-color: #1d4ed8;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .history-item:hover {
+        background-color: #1e40af;
+      }
+
+      /* Result Container */
+      .result-container {
+        width: 100%;
+        max-width: 580px;
+        display: none;
+      }
+
+      .result {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        animation: pop 0.5s ease-out;
+      }
+
+      .result-header {
+        margin-bottom: 16px;
+      }
+
+      .result-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #1e40af;
+        margin-bottom: 4px;
+      }
+
+      .result-subtitle {
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .result-meanings {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .meaning-item {
+        display: flex;
+      }
+
+      .meaning-number {
+        margin-right: 12px;
+        color: #2563eb;
+        font-weight: bold;
+      }
+
+      .meaning-text {
+        color: #374151;
+      }
+
+      .result-actions {
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+
+      .action-button {
+        color: #2563eb;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: auto;
+        padding-top: 48px;
+        text-align: center;
+        font-size: 14px;
+        color: rgba(219, 234, 254, 1);
+      }
+
+      /* Loader */
+      .loader {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+      }
+
+      .loader-content {
+        background-color: white;
+        padding: 16px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .loader-spinner {
+        width: 24px;
+        height: 24px;
+        border: 4px solid #2563eb;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Error styles */
+      .error-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #dc2626;
+      }
+
+      /* Responsiveness */
+      @media (max-width: 640px) {
+        .header-title {
+          font-size: 28px;
+        }
+        
+        .search-button span {
+          display: none;
+        }
       }
     </style>
   </head>
-  <body class="bg-gradient-to-b from-blue-500 to-blue-700 min-h-screen wave-bg">
-    <div class="container mx-auto px-4 py-8 flex flex-col items-center">
+  <body>
+    <div class="container">
       <!-- Header -->
-      <div class="mb-8 text-center animate-fade-in">
-        <div class="flex items-center justify-center mb-4">
-          <div class="bg-white rounded-full p-4 shadow-lg">
-            <i class="fas fa-book-open text-blue-600 text-4xl"></i>
+      <div class="header">
+        <div class="header-icon-container">
+          <div class="header-icon">
+            <i class="fas fa-book-open text-blue-600" style="font-size: 36px; color: #2563eb;"></i>
           </div>
         </div>
-        <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">
-          Kamus KBBI Modern
-        </h1>
-        <p class="text-blue-50 max-w-md mx-auto">
+        <h1 class="header-title">Kamus KBBI Modern</h1>
+        <p class="header-subtitle">
           Temukan definisi kata dalam Bahasa Indonesia dengan cepat dan mudah
         </p>
       </div>
 
       <!-- Search Form -->
-      <div
-        class="w-full max-w-xl glass-effect rounded-2xl shadow-lg p-6 mb-6 animate-scale"
-      >
-        <form id="kbbi-form" class="flex flex-col gap-4">
-          <div class="relative">
-            <i
-              class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-            ></i>
+      <div class="search-container">
+        <form id="kbbi-form" class="search-form">
+          <div class="search-input-container">
+            <i class="fas fa-search search-icon"></i>
             <input
               type="text"
               id="kata"
@@ -109,12 +451,9 @@
               placeholder="Masukkan kata yang ingin dicari..."
               autocomplete="off"
               required
-              class="w-full p-4 pl-12 rounded-xl border-2 border-blue-100 focus:border-blue-400 focus:outline-none transition-all duration-300 shadow-sm"
+              class="search-input"
             />
-            <button
-              type="submit"
-              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-300 flex items-center gap-2"
-            >
+            <button type="submit" class="search-button">
               <span>Cari</span>
               <i class="fas fa-arrow-right"></i>
             </button>
@@ -123,63 +462,43 @@
       </div>
 
       <!-- Recent Searches & Suggestions -->
-      <div class="w-full max-w-xl mb-6">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-white font-medium text-sm">Kata Populer</h3>
-          <button
-            id="refresh-random"
-            class="text-blue-100 hover:text-white text-sm flex items-center gap-1"
-          >
+      <div class="suggestions-container">
+        <div class="section-header">
+          <h3 class="section-title">Kata Populer</h3>
+          <button id="refresh-random" class="refresh-button">
             <i class="fas fa-sync-alt"></i>
             <span>Acak</span>
           </button>
         </div>
-        <div
-          id="saran-kata"
-          class="flex flex-wrap gap-2 justify-center animate-fade-in"
-        ></div>
+        <div id="saran-kata" class="suggestions-list"></div>
       </div>
 
       <!-- History -->
-      <div id="history-container" class="w-full max-w-xl mb-6 hidden">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-white font-medium text-sm">Riwayat Pencarian</h3>
-          <button
-            id="clear-history"
-            class="text-blue-100 hover:text-white text-sm flex items-center gap-1"
-          >
+      <div id="history-container" class="history-container">
+        <div class="section-header">
+          <h3 class="section-title">Riwayat Pencarian</h3>
+          <button id="clear-history" class="clear-button">
             <i class="fas fa-trash-alt"></i>
             <span>Hapus</span>
           </button>
         </div>
-        <div
-          id="history-list"
-          class="flex flex-wrap gap-2 justify-center"
-        ></div>
+        <div id="history-list" class="history-list"></div>
       </div>
 
       <!-- Result -->
-      <div id="result-container" class="w-full max-w-xl hidden">
-        <div
-          id="result"
-          class="glass-effect rounded-xl p-6 shadow-lg animate-pop"
-        ></div>
+      <div id="result-container" class="result-container">
+        <div id="result" class="result"></div>
       </div>
 
       <!-- Footer -->
-      <div class="mt-auto pt-12 text-center text-sm text-blue-100">
+      <div class="footer">
         <p>© 2025 Kamus KBBI Modern</p>
       </div>
 
       <!-- Loader -->
-      <div
-        id="loader"
-        class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-      >
-        <div class="bg-white p-4 rounded-lg flex items-center gap-3">
-          <div
-            class="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"
-          ></div>
+      <div id="loader" class="loader">
+        <div class="loader-content">
+          <div class="loader-spinner"></div>
           <span>Mencari...</span>
         </div>
       </div>
@@ -228,7 +547,7 @@
       // Display history if exists
       if (searchHistory.length > 0) {
         updateHistoryDisplay();
-        historyContainer.classList.remove("hidden");
+        historyContainer.style.display = "block";
       }
 
       // Initialize random suggestions
@@ -250,8 +569,7 @@
       function createSuggestionElement(kata) {
         const span = document.createElement("span");
         span.textContent = kata;
-        span.className =
-          "bg-gradient-to-r from-blue-50 to-white text-blue-800 px-3 py-2 rounded-lg shadow hover:shadow-md transition-all duration-200 text-sm cursor-pointer";
+        span.className = "suggestion-item";
 
         span.addEventListener("click", () => {
           inputKata.value = kata;
@@ -268,8 +586,7 @@
         searchHistory.slice(0, 8).forEach((item) => {
           const span = document.createElement("span");
           span.textContent = item;
-          span.className =
-            "bg-blue-700 text-white px-3 py-2 rounded-lg shadow hover:bg-blue-800 transition-all duration-200 text-sm cursor-pointer flex items-center gap-1";
+          span.className = "history-item";
 
           span.addEventListener("click", () => {
             inputKata.value = item;
@@ -298,7 +615,7 @@
 
         // Update display
         updateHistoryDisplay();
-        historyContainer.classList.remove("hidden");
+        historyContainer.style.display = "block";
       }
 
       // Clear history
@@ -306,7 +623,7 @@
         localStorage.removeItem("kbbiHistory");
         searchHistory = [];
         historyList.innerHTML = "";
-        historyContainer.classList.add("hidden");
+        historyContainer.style.display = "none";
       });
 
       // Refresh random suggestions
@@ -329,7 +646,7 @@
         }
 
         // Show loader
-        loader.classList.remove("hidden");
+        loader.style.display = "flex";
 
         try {
           const response = await fetch(
@@ -350,32 +667,32 @@
           if (data.arti && data.arti.length > 0) {
             // Create result HTML
             let resultHTML = `
-            <div class="mb-4">
-              <h3 class="text-xl font-bold text-blue-800 mb-1">
+            <div class="result-header">
+              <h3 class="result-title">
                 ${kata}
               </h3>
-              <div class="text-gray-500 text-sm">Kata Benda - KBBI</div>
+              <div class="result-subtitle">Kata Benda - KBBI</div>
             </div>
-            <div class="space-y-4">
+            <div class="result-meanings">
           `;
 
             data.arti.forEach((item, i) => {
               resultHTML += `
-              <div class="flex">
-                <div class="mr-3 text-blue-600 font-bold">${i + 1}</div>
-                <div class="text-gray-700">${item}</div>
+              <div class="meaning-item">
+                <div class="meaning-number">${i + 1}</div>
+                <div class="meaning-text">${item}</div>
               </div>
             `;
             });
 
             resultHTML += `
             </div>
-            <div class="mt-6 pt-5 border-t border-gray-200 flex justify-between text-sm">
-              <button id="share-btn" class="text-blue-600 flex items-center gap-1">
+            <div class="result-actions">
+              <button id="share-btn" class="action-button">
                 <i class="fas fa-share-alt"></i>
                 <span>Bagikan</span>
               </button>
-              <button id="speak-btn" class="text-blue-600 flex items-center gap-1">
+              <button id="speak-btn" class="action-button">
                 <i class="fas fa-volume-up"></i>
                 <span>Ucapkan</span>
               </button>
@@ -427,28 +744,28 @@
           showError(`Terjadi kesalahan: ${error.message}`);
         } finally {
           // Hide loader
-          loader.classList.add("hidden");
+          loader.style.display = "none";
           // Show result container
-          resultContainer.classList.remove("hidden");
+          resultContainer.style.display = "block";
         }
       });
 
       // Show error
       function showError(message) {
         resultDiv.innerHTML = `
-        <div class="flex items-center gap-3 text-red-600">
-          <i class="fas fa-exclamation-circle text-2xl"></i>
+        <div class="error-container">
+          <i class="fas fa-exclamation-circle" style="font-size: 24px;"></i>
           <p>${message}</p>
         </div>
       `;
-        resultContainer.classList.remove("hidden");
+        resultContainer.style.display = "block";
       }
 
       // Input animation on focus
       inputKata.addEventListener("focus", () => {
-        inputKata.parentElement.classList.add("scale-105");
+        inputKata.parentElement.classList.add("animate-scale");
         setTimeout(() => {
-          inputKata.parentElement.classList.remove("scale-105");
+          inputKata.parentElement.classList.remove("animate-scale");
         }, 300);
       });
     </script>
